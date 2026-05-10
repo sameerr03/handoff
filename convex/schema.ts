@@ -20,6 +20,9 @@ export default defineSchema({
     userId: v.id("users"),
     name: v.string(),
     tokenHash: v.string(),
+    bridgeVersion: v.optional(v.string()),
+    platform: v.optional(v.string()),
+    arch: v.optional(v.string()),
     lastSeenAt: v.optional(v.number()),
     revokedAt: v.optional(v.number()),
   })

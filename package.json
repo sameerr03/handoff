@@ -9,6 +9,7 @@
     "build:production": "npx convex deploy --cmd 'npm run build'",
     "build:preview": "next build",
     "start": "next start",
+    "handoff": "node scripts/handoff.mjs",
     "lint": "eslint",
     "format": "prettier --write \"**/*.{ts,tsx}\"",
     "typecheck": "tsc --noEmit"

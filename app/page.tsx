@@ -226,16 +226,17 @@ function PairingDialog({
   loading: boolean;
   onRegenerate: () => Promise<void>;
 }) {
+  const convexUrl = process.env.NEXT_PUBLIC_CONVEX_URL ?? "<convex-url>";
   const command = pairingCode
-    ? `codex-remote bridge pair ${pairingCode.code}`
-    : "codex-remote bridge pair <code>";
+    ? `HANDOFF_CONVEX_URL=${convexUrl} npm run handoff -- bridge pair ${pairingCode.code}`
+    : `HANDOFF_CONVEX_URL=${convexUrl} npm run handoff -- bridge pair <code>`;
 
   return (
     <DialogContent>
       <DialogHeader>
         <DialogTitle>Pair a Mac</DialogTitle>
         <DialogDescription>
-          This code is temporary. Bridge claiming will be wired in the next slice.
+          This code is temporary. Pairing a new Mac replaces the current active Mac.
         </DialogDescription>
       </DialogHeader>
       <div className="space-y-4">
@@ -255,7 +256,7 @@ function PairingDialog({
           </p>
         </div>
         <div className="space-y-2">
-          <Label htmlFor="pair-command">Future bridge command</Label>
+          <Label htmlFor="pair-command">Bridge command</Label>
           <Input id="pair-command" value={command} readOnly className="font-mono text-xs" />
         </div>
         <Button
