@@ -76,6 +76,7 @@ function Dashboard() {
   }, []);
 
   const isLoading = viewer === undefined || devices === undefined;
+  const hasActiveDevice = devices?.some((device) => !device.revokedAt) ?? false;
 
   async function handleCreatePairingCode() {
     setPairingLoading(true);
@@ -117,15 +118,17 @@ function Dashboard() {
           <div className="space-y-4">
             <div className="flex items-center justify-between gap-3">
               <h2 className="text-sm font-medium text-muted-foreground">Devices</h2>
-              <PairDeviceButton
-                compact
-                pairingOpen={pairingOpen}
-                setPairingOpen={setPairingOpen}
-                pairingCode={pairingCode}
-                pairingLoading={pairingLoading}
-                onCreate={handleCreatePairingCode}
-                onReset={() => setPairingCode(null)}
-              />
+              {!hasActiveDevice && (
+                <PairDeviceButton
+                  compact
+                  pairingOpen={pairingOpen}
+                  setPairingOpen={setPairingOpen}
+                  pairingCode={pairingCode}
+                  pairingLoading={pairingLoading}
+                  onCreate={handleCreatePairingCode}
+                  onReset={() => setPairingCode(null)}
+                />
+              )}
             </div>
             <div className="space-y-2">
               {devices.map((device) => (
